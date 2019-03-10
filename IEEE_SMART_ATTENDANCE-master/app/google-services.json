@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "746247859502",
+    "firebase_url": "https://ieee-smart-attendance.firebaseio.com",
+    "project_id": "ieee-smart-attendance",
+    "storage_bucket": "ieee-smart-attendance.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:746247859502:android:5281603d5542b243",
+        "android_client_info": {
+          "package_name": "com.ieeepec.smart.attendance"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "746247859502-jb141pifb9p0lbm7f9i33vscr40lthfu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ieeepec.smart.attendance",
+            "certificate_hash": "bcc540148de30b734c5070f22cc192b2bd3f10bf"
+          }
+        },
+        {
+          "client_id": "746247859502-ekq4j66v23o1rov8lie8hpspl754fke2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC0izjv0Tra63RLUUXaG7G61rW8Je0cmk4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "746247859502-ekq4j66v23o1rov8lie8hpspl754fke2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
