@@ -9,17 +9,24 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+
 import java.util.ArrayList;
 
 import static android.content.Context.LAYOUT_INFLATER_SERVICE;
 
-public class FeedsAdapter extends RecyclerView.Adapter<FeedsAdapter.ViewHolder> {
-    ArrayList<IEEE_FEEDS> data;
-    Context ctx;
+public class FeedsAdapter {
+    //ArrayList<IEEE_FEEDS> data;
+    //Context ctx;
 
-    public FeedsAdapter(Context ctx, ArrayList<IEEE_FEEDS> al) {
+    /*public FeedsAdapter(Context ctx, ArrayList<IEEE_FEEDS> al) {
         this.ctx = ctx;
         this.data = al;
+    }*/
+   /* public FeedsAdapter(FirestoreRecyclerOptions<IEEE_FEEDS> feedsResponse)
+    {
+        super(feedsResponse);
     }
 
     @NonNull
@@ -27,28 +34,24 @@ public class FeedsAdapter extends RecyclerView.Adapter<FeedsAdapter.ViewHolder> 
     public FeedsAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v;
         ViewHolder vh;
-        LayoutInflater li = (LayoutInflater) (ctx.getSystemService(LAYOUT_INFLATER_SERVICE));
-        v = li.inflate(R.layout.item_list, parent, false);
+        LayoutInflater li = (LayoutInflater) (parent.getContext().getSystemService(LAYOUT_INFLATER_SERVICE));
+        v = li.inflate(R.layout.feeds_list, parent, false);
         vh = new ViewHolder(v);
         return vh;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull FeedsAdapter.ViewHolder holder, int position) {
-        String text1 = data.get(position).getDate();
-        String text2 = data.get(position).getName();
-        String text3 = data.get(position).getDescription();
+    protected void onBindViewHolder(@NonNull ViewHolder holder, int position, @NonNull IEEE_FEEDS model) {
+        String text1 = model.getDate();
+        String text2 = model.getName();
+        String text3 = model.getDescription();
         holder.txt1.setText(text1);
         holder.txt2.setText(text2);
         holder.txt3.setText(text3);
-    }
 
-    @Override
-    public int getItemCount() {
-        return data.size();
     }
-
-    class ViewHolder extends RecyclerView.ViewHolder {
+*/
+    static class ViewHolder extends RecyclerView.ViewHolder {
         TextView txt1;
         TextView txt2;
         TextView txt3;

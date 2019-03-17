@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 }
             });
         }
+
         NavigationView navigationView = findViewById(R.id.nav_view);
         Menu menu = navigationView.getMenu();
         if (FirebaseAuth.getInstance().getCurrentUser() != null) {
@@ -76,7 +77,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 return false;
             }
         });
-
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                new Frag_feeds()).commit();
     }
 
     @Override
@@ -85,6 +87,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.login: {
                 if (menuItem.getTitle().equals("Profile")) {
                     startActivity(new Intent(this, Profile.class));
+                    break;
                 } else {
                     startActivity(new Intent(this, Login.class));
                     break;

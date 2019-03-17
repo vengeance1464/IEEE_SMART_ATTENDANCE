@@ -10,31 +10,72 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
+import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Query;
 
 import java.util.ArrayList;
 
+import static android.content.Context.LAYOUT_INFLATER_SERVICE;
+
 public class Frag_feeds extends Fragment {
     ArrayList<IEEE_FEEDS> ieee_feeds = new ArrayList<>();
-
-    public Frag_feeds() {
-
-    }
-
+    private FirestoreRecyclerAdapter fAdapter;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_frag_feeds, container, false);
-        RecyclerView recyclerView = getActivity().findViewById(R.id.rvFeeds);
-        FeedsAdapter feedsAdapter = new FeedsAdapter(getActivity(), ieee_feeds);
+         View view=inflater.inflate(R.layout.feeds_recycler, container, false);
+        RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        DocumentReference dr = db.collection("Feeds").document();
-        recyclerView.setAdapter(feedsAdapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        // DocumentReference dr = db.collection("Events").document();
+        Query exploreDataQuery=db.collection("Event");
+        /*FirestoreRecyclerOptions<IEEE_FEEDS> feedResponse = new FirestoreRecyclerOptions.Builder<IEEE_FEEDS>()
+                .setQuery(exploreDataQuery, IEEE_FEEDS.class)
+                .build();*/
+        FirestoreRecyclerOptions<IEEE_FEEDS> feedResponse = new FirestoreRecyclerOptions.Builder<IEEE_FEEDS>()
+                .setQuery(exploreDataQuery, IEEE_FEEDS.class)
+                .build();
+        this.fAdapter =new FirestoreRecyclerAdapter<IEEE_FEEDS,FeedsAdapter.ViewHolder>(feedResponse){
 
+            @NonNull
+            @Override
+            public FeedsAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+                View v;
+                FeedsAdapter.ViewHolder vh;
+                LayoutInflater li = (LayoutInflater) (viewGroup.getContext().getSystemService(LAYOUT_INFLATER_SERVICE));
+                v = li.inflate(R.layout.feeds_list, viewGroup, false);
+                vh = new FeedsAdapter.ViewHolder(v);
+                return vh;
+            }
+            @Override
+            protected void onBindViewHolder(@NonNull FeedsAdapter.ViewHolder holder, int position, @NonNull IEEE_FEEDS model) {
+                String text1 = model.getDate();
+                String text2 = model.getName();
+                String text3 = model.getDesc();
+                holder.txt1.setText(text1);
+                holder.txt2.setText(text2);
+                holder.txt3.setText(text3);
+            }
+
+
+        };
+        fAdapter.notifyDataSetChanged();
+        recyclerView.setAdapter(fAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        return view;
+
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        fAdapter.startListening();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        fAdapter.stopListening();
     }
 }

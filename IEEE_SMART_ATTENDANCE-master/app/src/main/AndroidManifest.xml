@@ -33,6 +33,7 @@
         <activity android:name=".Login" />
         <activity android:name=".CreateAccount" />
         <activity android:name=".Profile"></activity>
+        <activity android:name=".Barcode"> </activity>
     </application>
 
 </manifest>

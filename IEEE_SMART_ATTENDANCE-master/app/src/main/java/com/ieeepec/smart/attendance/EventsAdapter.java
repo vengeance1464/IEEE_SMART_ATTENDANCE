@@ -10,17 +10,25 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+
 import java.util.ArrayList;
 
 import static android.content.Context.LAYOUT_INFLATER_SERVICE;
 
-class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder> {
-    ArrayList<IEEE_EVENT> data;
-    Context ctx;
+class EventsAdapter  {
+    //ArrayList<IEEE_EVENT> data;
+    //Context ctx;
 
-    public EventsAdapter(Context ctx, ArrayList<IEEE_EVENT> al) {
+    /*public EventsAdapter(Context ctx, ArrayList<IEEE_EVENT> al) {
+
         this.ctx = ctx;
         this.data = al;
+    }*/
+  /* public EventsAdapter(FirestoreRecyclerOptions<IEEE_EVENT> eventsResponse)
+    {
+       super(eventsResponse);
     }
 
     @NonNull
@@ -28,13 +36,13 @@ class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder> {
     public EventsAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v;
         EventsAdapter.ViewHolder vh;
-        LayoutInflater li = (LayoutInflater) (ctx.getSystemService(LAYOUT_INFLATER_SERVICE));
-        v = li.inflate(R.layout.item_list, parent, false);
+        LayoutInflater li = (LayoutInflater) (parent.getContext().getSystemService(LAYOUT_INFLATER_SERVICE));
+        v = li.inflate(R.layout.event_items, parent, false);
         vh = new ViewHolder(v);
         return vh;
     }
 
-    @Override
+   /* @Override
     public void onBindViewHolder(@NonNull EventsAdapter.ViewHolder holder, int position) {
         String date = data.get(position).getDate();
         String name = data.get(position).getEvent();
@@ -43,11 +51,14 @@ class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder> {
     }
 
     @Override
-    public int getItemCount() {
-        return data.size();
-    }
+    protected void onBindViewHolder(@NonNull ViewHolder holder, int position, @NonNull IEEE_EVENT model) {
+        String date = model.getDate();
+        String name =model.getEvent();
+        holder.textView1.setText(date);
+        holder.textView2.setText(name);
+    }*/
 
-    class ViewHolder extends RecyclerView.ViewHolder {
+    static class ViewHolder extends RecyclerView.ViewHolder {
         TextView textView1;
         TextView textView2;
         Button button1;
