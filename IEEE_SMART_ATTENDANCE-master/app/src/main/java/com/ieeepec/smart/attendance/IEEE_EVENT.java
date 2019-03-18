@@ -5,8 +5,9 @@ import java.util.ArrayList;
 public class IEEE_EVENT {
 
     private String date;
-    private String event;
+   // private String event;
     private int id;
+    private String name;
     private String qr;
     private ArrayList<String>reg;
 //    private int image;
@@ -25,8 +26,8 @@ public class IEEE_EVENT {
         this.date = date;
     }
 */
-    public String getEvent() {
-        return event;
+    public String getName() {
+        return name;
     }
 
     public int getId() {

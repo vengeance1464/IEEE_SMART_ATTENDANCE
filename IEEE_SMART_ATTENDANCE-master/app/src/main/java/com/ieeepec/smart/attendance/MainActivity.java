@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mToggle;
     public FirebaseFirestore db;
-
+    public  BottomNavigationView bottomNavigationView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,6 +48,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Menu menu = navigationView.getMenu();
         if (FirebaseAuth.getInstance().getCurrentUser() != null) {
             menu.findItem(R.id.login).setTitle("Profile");
+            menu.findItem(R.id.signout).setVisible(true);
+        }else
+        {
+            menu.findItem(R.id.signout).setVisible(false);
         }
         navigationView.setNavigationItemSelectedListener(this);
         mDrawerLayout = findViewById(R.id.drawerLayout);
@@ -56,7 +60,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mToggle.syncState();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNav);
+          bottomNavigationView = findViewById(R.id.bottomNav);
         MenuItem menuItem = menu.getItem(0);
         menuItem.setChecked(true);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -64,16 +68,24 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
                 switch (item.getItemId()) {
-                    case R.id.feed:
+                    case R.id.feed: {
+                        bottomNavigationView.getMenu().findItem(R.id.events).setChecked(false);
+                        item.setChecked(true);
                         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                                 new Frag_feeds()).commit();
-                        break;
 
+                        break;
+                    }
                     case R.id.events:
+
+                    {
+                        bottomNavigationView.getMenu().findItem(R.id.feed).setChecked(false);
+                        item.setChecked(true);
                         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                                 new Frag_events()).commit();
                         break;
-                }
+                    }
+                    }
                 return false;
             }
         });
@@ -92,6 +104,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     startActivity(new Intent(this, Login.class));
                     break;
                 }
+            }
+            case R.id.signout:{
+                FirebaseAuth.getInstance().signOut();
+                startActivity(new Intent(this,MainActivity.class));
             }
         }
         mDrawerLayout.closeDrawer(GravityCompat.START);

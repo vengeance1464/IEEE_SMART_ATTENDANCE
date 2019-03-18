@@ -5,5 +5,9 @@
         android:id="@+id/login"
         android:icon="@drawable/ic_person_black_24dp"
         android:title="Login/SignUp"/>
+    <item
+        android:id="@+id/signout"
+        android:icon="@drawable/ic_person_black_24dp"
+        android:title="Signout"/>
 
 </menu>

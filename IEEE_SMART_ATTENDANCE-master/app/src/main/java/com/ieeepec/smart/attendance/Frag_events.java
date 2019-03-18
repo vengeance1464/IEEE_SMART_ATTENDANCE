@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
@@ -59,13 +60,22 @@ public class Frag_events extends Fragment {
             @Override
             protected void onBindViewHolder(@NonNull EventsAdapter.ViewHolder holder, int position, @NonNull final IEEE_EVENT model) {
                 String date = model.getDate();
-                String name =model.getEvent();
+                String name =model.getName();
                 //id=model.getId();
                  //flag=0;
                 //qr=model.getQr();
                 //regList=model.getReg();
                 holder.textView1.setText(date);
                 holder.textView2.setText(name);
+                if(FirebaseAuth.getInstance().getCurrentUser()==null)
+                {
+                    holder.button1.setVisibility(View.GONE);
+                    holder.button2.setVisibility(View.GONE);
+                }else
+                {
+                    holder.button1.setVisibility(View.VISIBLE);
+                    holder.button2.setVisibility(View.VISIBLE);
+                }
                 holder.button1.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
